@@ -1,6 +1,7 @@
 import React from 'react'
 import { deleteMessage } from './actions'
 import { useDispatch } from "react-redux";
+import moment from 'moment'
 
 const MessageView = ({ messages }) => {
     const dispatch = useDispatch()
@@ -14,11 +15,11 @@ const MessageView = ({ messages }) => {
         onClick={() => handleClick(message.id)}
         >
         {message.text}
-        <span className='time'>@{message.timestamp}</span>
+        <span className='time'>@{moment(Date.now).calendar()}</span>
         </div>
     )); 
     return (
-        <div className='ui comments'>
+        <div className='list-message'>
         {ListMessages}
         </div>
     )

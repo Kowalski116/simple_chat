@@ -12,24 +12,24 @@ function App() {
   const activeThreadId = useSelector(state => state.activeThreadId)
   const threads = useSelector(state => state.threads)
   const activeThread = threads.find((t) => t.id === activeThreadId);
-
-  const tabs = useSelector(state => 
-      state.threads.map(t => ({
-          title: t.title,
-          active: t.id === state.activeThreadId,
-          id: t.id
-      }))
+  const userThread = threads.find((t) => t.id !== activeThreadId);
+  const tabs = useSelector(state =>
+    state.threads.map(t => ({
+      title: t.title,
+      active: t.id === state.activeThreadId,
+      id: t.id
+    }))
   )
   return (
     <div style={{
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      height:"100vh",
-      flexDirection:'column'
+      height: "100vh",
+      flexDirection: 'column'
     }}>
       <ThreadTabs tabs={tabs} />
-      <Thread thread={activeThread} />
+      <Thread thread={activeThread} userthread={userThread} />
     </div>
   );
 }

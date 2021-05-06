@@ -13,7 +13,7 @@ const MessageInput = ({ threadId }) => {
         setValue("")
     }
     return (
-        <div className='ui input'>
+        <div className='input'>
         <input
             onChange={onChange}
             value={value}
@@ -21,7 +21,7 @@ const MessageInput = ({ threadId }) => {
             />
         <button
         onClick={handleSubmit}
-        className='ui primary button'
+        className='primary-button'
         type='submit'
         >
         Submit
