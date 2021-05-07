@@ -28,6 +28,7 @@ function App() {
       height: "100vh",
       flexDirection: 'column'
     }}>
+      <h4>Hello, {userThread.title}</h4>
       <ThreadTabs tabs={tabs} />
       <Thread thread={activeThread} userthread={userThread} />
     </div>

@@ -9,7 +9,7 @@ const initialState = [ // Two threads in state
     messages: [
       { // This thread starts with a single message already
         text: 'Twelve minutes to ignition.',
-        timestamp: Date.now,
+        timestamp: Date.now(),
         id: uuidv4(),
       },
     ],
@@ -20,7 +20,12 @@ const initialState = [ // Two threads in state
     messages: [
       { // This thread starts with a single message already
         text: 'Hi there',
-        timestamp: Date.now,
+        timestamp: Date.now()-200000,
+        id: uuidv4(),
+      },
+      { // This thread starts with a single message already
+        text: 'How are you',
+        timestamp: Date.now()-300000,
         id: uuidv4(),
       },
     ],
@@ -49,10 +54,10 @@ export default function (state = initialState, action) {
     case 'ADD_MESSAGE':
     case 'DELETE_MESSAGE': {
       const threadIndex = findThreadIndex(state, action);
-      const oldThread = state[threadIndex];
+      const oldThread = state[threadIndex];      
       const newThread = {
         ...oldThread,
-        messages: messagesReducer(oldThread.messages, action),
+        messages: messagesReducer(oldThread.messages, ({...action,threadId:oldThread.id})),
       };
       return [
         ...state.slice(0, threadIndex),

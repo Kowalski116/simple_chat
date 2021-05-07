@@ -1,7 +1,8 @@
-export const deleteMessage = (id) => {
+export const deleteMessage = (id,userthreadId) => {
     return {
         type: 'DELETE_MESSAGE',
         id: id,
+        userthreadId
     };
 };
 

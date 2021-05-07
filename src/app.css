@@ -1,15 +1,33 @@
-*{
+* {
   box-sizing: border-box;
 }
-.comment{
-    cursor: pointer;
+.comment {
+  width: 100%;
+  overflow: hidden;
 }
-.tab-list {  
+.comment-content {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-width: 100px;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 5px;
+  white-space: nowrap;
+  margin: 5px 10px;
+}
+.comment-right {
+  float: right;
+  background-color: #f1f1f1;
+}
+.comment-left {
+  float: left;
+}
+.tab-list {
   border-bottom: 1px solid #ccc;
   padding-left: 0;
   width: 600px;
 }
-  
+
 .tab-list-item {
   display: inline-block;
   list-style: none;
@@ -29,8 +47,31 @@
   border: 1px solid #ccc;
   border-top: 0px;
   overflow-y: auto;
+  padding: 10px 0px;
 }
 .input {
   display: flex;
-  justify-content: 'space-between';
+  justify-content: "space-between";
+  width: 600px;
+}
+input {
+  width: 100%;
+  height: 30px;
+}
+/* Style time text */
+.time-right {
+  float: right;
+  color: #aaa;
+  font-size: 80%;
+}
+
+/* Style time text */
+.time-left {
+  float: left;
+  color: #999;
+  font-size: 80%;
+}
+p {
+  word-break: break-all;
+  white-space: normal;
 }

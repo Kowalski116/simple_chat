@@ -6,8 +6,6 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case "OPEN_THREAD":
       return action.id
-      
-
     default:
       return state;
   }

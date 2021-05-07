@@ -1,15 +1,15 @@
 import React from 'react'
 import MessageView from './MessageView'
 import MessageInput from './MessageInput'
+import moment from 'moment'
 
 const Thread = ({ thread, userthread }) => {
     const messages = [...thread.messages.map((m) => ({...m,userid:thread.id})),...userthread.messages.map((m) => ({...m,userid:userthread.id}))]
-    messages.sort((a, b) => b.timestamp - a.timestamp);
-    console.log(messages)
+    messages.sort((a, b) => moment(a.timestamp).diff(moment(b.timestamp)))
     return (
-        <div>
-            <MessageView messages={thread.messages} usermessages={userthread.messages} />
-            <MessageInput threadId={thread.id} />
+        <div style={{paddingBottom:'10'}}>
+            <MessageView messages={messages} userthreadId={userthread.id}/>
+            <MessageInput userthreadId={userthread.id} />
         </div>
     )
 }

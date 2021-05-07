@@ -2,15 +2,23 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addMessage } from './actions'
 
-const MessageInput = ({ threadId }) => {
+const MessageInput = ({ userthreadId }) => {
     const dispatch = useDispatch()
     const [value, setValue] = useState('')
     const onChange = (e) => {
         setValue(e.target.value)
     } 
     const handleSubmit = () => {
-        dispatch(addMessage(value,threadId))
+        if (value=='') return
+        dispatch(addMessage(value,userthreadId))
         setValue("")
+    }
+    const handlekeyDown = (e) => {
+        if (e.key === 'Enter') {
+            if (value=='') return
+            dispatch(addMessage(value,userthreadId))
+            setValue("")
+          }
     }
     return (
         <div className='input'>
@@ -18,6 +26,8 @@ const MessageInput = ({ threadId }) => {
             onChange={onChange}
             value={value}
             type='text'
+            onKeyDown={(e) => handlekeyDown(e)}
+            placeholder="Write a message..."
             />
         <button
         onClick={handleSubmit}
