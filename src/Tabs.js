@@ -10,7 +10,7 @@ const Tabs = ({ tabs, onClick }) => {
             className={tab.active ? 'tab-list-item tab-list-active' : 'tab-list-item'}
             onClick={() => onClick(tab.id)}
             >
-            {tab.title}
+            {tab.name}
             </div>
             ))
         }
