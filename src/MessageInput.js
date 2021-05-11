@@ -4,7 +4,8 @@ import parse from 'html-react-parser';
 import { addMessage } from './actions'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 
-const MessageInput = ({ userthreadId }) => {
+const MessageInput = ({ userId, threadId }) => {
+    console.log(userId, threadId)
     const dispatch = useDispatch()
     const [value, setValue] = useState('')
     const onChange = (e) => {
@@ -13,14 +14,14 @@ const MessageInput = ({ userthreadId }) => {
     const handleSubmit = () => {
         if (value=='') return
         console.log(value)
-        dispatch(addMessage(value,userthreadId))
+        dispatch(addMessage(value, userId, threadId))
         setValue("")
     }
     const handlekeyDown = (e) => {
         const keyCode = e.which || e.keyCode;
         if (keyCode === 13 && !e.shiftKey) {
             if (value=='') return
-            dispatch(addMessage(value,userthreadId))
+            dispatch(addMessage(value, userId, threadId))
             setValue("")
             e.preventDefault()
         }

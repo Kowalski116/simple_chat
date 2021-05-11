@@ -12,8 +12,7 @@ export default function(state , action) {
         return state.concat(newMessage);
         }
         case 'DELETE_MESSAGE': {
-            if (action.threadId !== action.userthreadId)
-                return state
+            console.log(action)
             return state.filter(m => m.id !== action.id);
         }
         default: {

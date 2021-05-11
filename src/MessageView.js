@@ -6,11 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import parse from 'html-react-parser';
 
-const MessageView = ({ messages, userthreadId }) => {
+const MessageView = ({ messages, userthreadId, threadId }) => {
     const [currentIdMessage, setCurrentIdMessage] = useState('')
     const dispatch = useDispatch()
     const handleClick =(id) => {
-        dispatch(deleteMessage(id,userthreadId))
+        dispatch(deleteMessage(id,userthreadId, threadId))
     }
     const setDeleteMessage = (id) => {
         if (id === currentIdMessage) { setCurrentIdMessage('')}

@@ -5,13 +5,14 @@ import moment from 'moment';
 const initialState = [ // Two threads in state
   {
     threadId: '1-fca2', // hardcoded pseudo-UUID
+    threadName: 'Thread 1',
     activeUserId:'1',
     users: [{
       id: '1',
       name: 'Buzz Aldrin',
       messages: [{ // This thread starts with a single message already
         text: 'Twelve minutes to ignition.',
-        timestamp: Date.now(),
+        timestamp: Date.now() - 10000,
         id: uuidv4(),
       },]
     },
@@ -20,7 +21,7 @@ const initialState = [ // Two threads in state
       name: 'Michael Collins',
       messages: [{ // This thread starts with a single message already
         text: 'I am Michael Collins',
-        timestamp: Date.now(),
+        timestamp: Date.now() + 10000,
         id: uuidv4(),
       },
       { // This thread starts with a single message already
@@ -30,30 +31,39 @@ const initialState = [ // Two threads in state
       }]
     }]
   },
-  // {
-  //   id: '2-be91',
-  //   title: 'Michael Collins',
-  //   messages: [
-  //     { // This thread starts with a single message already
-  //       text: 'Hi there',
-  //       timestamp: Date.now()-200000,
-  //       id: uuidv4(),
-  //     },
-  //     { // This thread starts with a single message already
-  //       text: 'How are you',
-  //       timestamp: Date.now()-300000,
-  //       id: uuidv4(),
-  //     },
-  //   ],
-  // },
+  {
+    threadId: '1-fca3', // hardcoded pseudo-UUID
+    threadName: 'Thread 2',
+    activeUserId:'1',
+    users: [{
+      id: '1',
+      name: 'Kowa',
+      messages: [{ // This thread starts with a single message already
+        text: 'Twelve minutes to fire.',
+        timestamp: Date.now() - 10000,
+        id: uuidv4(),
+      },]
+    },
+    {
+      id: '2',
+      name: 'Saki',
+      messages: [{ // This thread starts with a single message already
+        text: 'I am Saki',
+        timestamp: Date.now() + 10000,
+        id: uuidv4(),
+      },
+      { // This thread starts with a single message already
+        text: 'I am Mi',
+        timestamp: Date.now(),
+        id: uuidv4(),
+      }]
+    }]
+  }
 ]
 function findThreadIndex(threads, action) {
-  switch (action.type) {
-    case 'ADD_MESSAGE': 
-    case 'OPEN_USER':
-    case 'DELETE_MESSAGE':{
+  console.log(action)
       return threads.findIndex(
-        (t) => t.id === action.threadId
+        (t) => t.threadId === action.threadId
       );
     }
     // case 'DELETE_MESSAGE': {
@@ -64,8 +74,7 @@ function findThreadIndex(threads, action) {
     //     ))
     //   );
     // }
-  }
-}
+
 
 
 export default function (state = initialState, action) {
@@ -73,17 +82,17 @@ export default function (state = initialState, action) {
     case 'ADD_MESSAGE':
     case 'DELETE_MESSAGE': {
       const threadIndex = findThreadIndex(state, action);
+      console.log(threadIndex)
       const oldThread = state[threadIndex];   
-      const userIndex = oldThread.users.findIndex(u => u.messages.find(m => (
-        m.id === action.id
-      )))   
+      const userIndex = oldThread.users.findIndex(u => u.id === action.userId)   
       const oldUser = oldThread.users[userIndex]
+      console.log(oldUser)
       const newUser = {...oldUser, messages: messagesReducer(oldUser.messages, action)}
       const newThread = {
         ...oldThread,
         users: [...oldThread.users.slice(0, userIndex),
         newUser,
-        ...state.slice(
+        ...oldThread.users.slice(
           userIndex + 1, oldThread.users.length
         ),],
       };
@@ -95,8 +104,9 @@ export default function (state = initialState, action) {
         ),
       ];
     }
-    case 'OPEN_USER':
+    case 'OPEN_USER': {
       const threadIndex = findThreadIndex(state, action);
+      console.log(threadIndex)
       const oldThread = state[threadIndex];
       const newThread = {
         ...oldThread,
@@ -109,6 +119,27 @@ export default function (state = initialState, action) {
           threadIndex + 1, state.length
         ),
       ];
+    }
+    case 'ADD_THREAD':{
+      const newThread = {
+        threadId: uuidv4(),
+        threadName: action.threadName,
+        activeUserId: '1',
+        users: [
+          {
+            id: '1',
+            name: action.userName[0],
+            messages: []
+          },
+          {
+            id: '2',
+            name: action.userName[1],
+            messages: []
+          }
+        ]
+      }
+      return state.concat(newThread)
+    }
     default: {
       return state;
     }

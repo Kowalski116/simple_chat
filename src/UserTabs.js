@@ -3,16 +3,16 @@ import Tabs from './Tabs'
 import { useSelector, useDispatch } from 'react-redux'
 import { openUser } from './actions'
 
-const ThreadTabs = ({ tabs }) => {
-    const dispatch = useDispatch() 
+const UserTabs = ({ tabs }) => {
+    const dispatch = useDispatch()
     return (
         <div className='tab-list'>
             <Tabs className='' tabs={tabs}
-            onClick={(id) => (
-            dispatch(openUser(id))
-            )} />
+                onClick={(id,activeThreadId) => (
+                    dispatch(openUser(id,activeThreadId))
+                )} />
         </div>
     )
 }
 
-export default ThreadTabs
+export default UserTabs

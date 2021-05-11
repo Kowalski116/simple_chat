@@ -3,7 +3,7 @@ import Tabs from './Tabs'
 import { useSelector, useDispatch } from 'react-redux'
 import { openThread } from './actions'
 
-const ThreadTabs = ({ tabs }) => {
+const ThreadTabs = ({ tabs, openModalClick }) => {
     const dispatch = useDispatch() 
     return (
         <div className='tab-list'>
@@ -11,6 +11,7 @@ const ThreadTabs = ({ tabs }) => {
             onClick={(id) => (
             dispatch(openThread(id))
             )} />
+            <button className='btn' onClick={() => openModalClick()}> + </button>
         </div>
     )
 }

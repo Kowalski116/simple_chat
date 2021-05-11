@@ -8,7 +8,7 @@ const Tabs = ({ tabs, onClick }) => {
             <div
             key={index}
             className={tab.active ? 'tab-list-item tab-list-active' : 'tab-list-item'}
-            onClick={() => onClick(tab.id)}
+            onClick={() => onClick(tab.id, tab.threadId)}
             >
             {tab.name}
             </div>
